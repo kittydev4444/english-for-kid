@@ -1,26 +1,45 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-background: #0f0a1e;
+  --color-foreground: #ffffff;
+  --color-card: #1a1229;
+  --color-card-foreground: #ffffff;
+  --color-primary: #9945FF;
+  --color-primary-foreground: #ffffff;
+  --color-secondary: #14F195;
+  --color-secondary-foreground: #0f0a1e;
+  --color-muted: #251c3a;
+  --color-muted-foreground: #a0a0b0;
+  --color-accent: #9945FF;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #ef4444;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #2a1f3d;
+  --color-input: #251c3a;
+  --color-ring: #9945FF;
+  --radius: 0.75rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, #0f0a1e 0%, #1a0e2e 50%, #0f0a1e 100%);
+  background-attachment: fixed;
+  color: var(--color-foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #9945FF 0%, #14F195 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.card-glow {
+  box-shadow: 0 0 20px rgba(153, 69, 255, 0.15);
+}
+
+.card-glow:hover {
+  box-shadow: 0 0 30px rgba(153, 69, 255, 0.25);
+  transition: box-shadow 0.3s ease;
 }
