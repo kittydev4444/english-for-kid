@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { FileText } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { FileText } from "lucide-react";
 
 export default function ReportsPage() {
   return (
@@ -11,7 +10,9 @@ export default function ReportsPage() {
         <FileText className="h-12 w-12 text-primary" />
         <div>
           <h1 className="text-4xl font-bold">Weekly Reports</h1>
-          <p className="text-muted-foreground">Generate progress reports for parents</p>
+          <p className="text-muted-foreground">
+            Generate progress reports for parents
+          </p>
         </div>
       </div>
 
@@ -21,8 +22,8 @@ export default function ReportsPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Report generation features will be available soon. You'll be able to create
-            weekly summaries of progress, attendance, and achievements.
+            Report generation features will be available soon. You'll be able to
+            create weekly summaries of progress, attendance, and achievements.
           </p>
         </CardContent>
       </Card>

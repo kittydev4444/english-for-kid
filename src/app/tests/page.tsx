@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { TestTube } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { TestTube } from "lucide-react";
 
 export default function TestsPage() {
   return (
@@ -11,7 +10,9 @@ export default function TestsPage() {
         <TestTube className="h-12 w-12 text-primary" />
         <div>
           <h1 className="text-4xl font-bold">Test Tracker</h1>
-          <p className="text-muted-foreground">Track student test scores and progress</p>
+          <p className="text-muted-foreground">
+            Track student test scores and progress
+          </p>
         </div>
       </div>
 
@@ -21,8 +22,8 @@ export default function TestsPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Test tracking features will be available soon. You'll be able to record and
-            analyze test scores across different skill areas.
+            Test tracking features will be available soon. You'll be able to
+            record and analyze test scores across different skill areas.
           </p>
         </CardContent>
       </Card>

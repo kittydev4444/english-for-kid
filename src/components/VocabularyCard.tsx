@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Card } from './ui/card';
-import { TTSButton } from './TTSButton';
-import { VocabularyWord } from '@/types';
-import { cn } from '@/lib/utils';
-import { Check, Edit, Trash } from 'lucide-react';
-import { Button } from './ui/button';
-import { useAppStore } from '@/store/useAppStore';
+import { cn } from "@/lib/utils";
+import { useAppStore } from "@/store/useAppStore";
+import { VocabularyWord } from "@/types";
+import { motion } from "framer-motion";
+import { Check, Edit, Trash } from "lucide-react";
+import React, { useState } from "react";
+import { TTSButton } from "./TTSButton";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
 
 interface VocabularyCardProps {
   word: VocabularyWord;
@@ -44,19 +44,17 @@ export const VocabularyCard: React.FC<VocabularyCardProps> = ({
     <div className="perspective-1000">
       <motion.div
         className="relative h-64 cursor-pointer"
-        style={{ transformStyle: 'preserve-3d' }}
+        style={{ transformStyle: "preserve-3d" }}
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6 }}
-        onClick={handleCardClick}
-      >
+        onClick={handleCardClick}>
         {/* Front of card */}
         <Card
           className={cn(
-            'absolute inset-0 flex flex-col items-center justify-center p-6 backface-hidden card-glow',
-            word.mastered && 'border-secondary border-2'
+            "absolute inset-0 flex flex-col items-center justify-center p-6 backface-hidden card-glow",
+            word.mastered && "border-secondary border-2"
           )}
-          style={{ backfaceVisibility: 'hidden' }}
-        >
+          style={{ backfaceVisibility: "hidden" }}>
           <div className="flex items-center justify-between w-full mb-4">
             <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
               {word.category}
@@ -65,10 +63,7 @@ export const VocabularyCard: React.FC<VocabularyCardProps> = ({
               variant="ghost"
               size="icon"
               onClick={handleToggleMastered}
-              className={cn(
-                word.mastered && 'text-green-600'
-              )}
-            >
+              className={cn(word.mastered && "text-green-600")}>
               <Check className="h-4 w-4" />
             </Button>
           </div>
@@ -108,10 +103,9 @@ export const VocabularyCard: React.FC<VocabularyCardProps> = ({
         <Card
           className="absolute inset-0 flex flex-col items-center justify-center p-6 backface-hidden card-glow border-secondary/30"
           style={{
-            backfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
-          }}
-        >
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}>
           <h3 className="text-2xl font-semibold text-center mb-2">
             {word.thaiTranslation}
           </h3>
@@ -134,8 +128,7 @@ export const VocabularyCard: React.FC<VocabularyCardProps> = ({
                 onClick={(e) => {
                   e.stopPropagation();
                   onEdit();
-                }}
-              >
+                }}>
                 <Edit className="h-4 w-4 mr-1" />
                 Edit
               </Button>
@@ -147,8 +140,7 @@ export const VocabularyCard: React.FC<VocabularyCardProps> = ({
                 onClick={(e) => {
                   e.stopPropagation();
                   onDelete();
-                }}
-              >
+                }}>
                 <Trash className="h-4 w-4 mr-1" />
                 Delete
               </Button>

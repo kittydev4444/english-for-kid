@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useAppStore } from '@/store/useAppStore';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { ChevronDown, ChevronUp, Calendar as CalendarIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
+import { useAppStore } from "@/store/useAppStore";
+import { AnimatePresence, motion } from "framer-motion";
+import { Calendar as CalendarIcon, ChevronDown, ChevronUp } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 export default function CalendarPage() {
   const weeks = useAppStore((state) => state.weeks);
@@ -16,23 +16,23 @@ export default function CalendarPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed':
-        return 'bg-green-500';
-      case 'in-progress':
-        return 'bg-yellow-500';
+      case "completed":
+        return "bg-green-500";
+      case "in-progress":
+        return "bg-yellow-500";
       default:
-        return 'bg-red-500';
+        return "bg-red-500";
     }
   };
 
   const getStatusLabel = (status: string) => {
     switch (status) {
-      case 'completed':
-        return 'Completed';
-      case 'in-progress':
-        return 'In Progress';
+      case "completed":
+        return "Completed";
+      case "in-progress":
+        return "In Progress";
       default:
-        return 'Not Started';
+        return "Not Started";
     }
   };
 
@@ -90,8 +90,7 @@ export default function CalendarPage() {
                 className="cursor-pointer hover:bg-accent/50 transition-colors"
                 onClick={() =>
                   setExpandedWeek(isExpanded ? null : week.weekNumber)
-                }
-              >
+                }>
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <CardTitle className="text-xl">
@@ -118,35 +117,34 @@ export default function CalendarPage() {
                 {isExpanded && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
+                    animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
+                    transition={{ duration: 0.3 }}>
                     <CardContent>
                       <div className="space-y-3">
                         {week.lessons.map((lesson) => {
                           const dayName = [
-                            'Monday',
-                            'Tuesday',
-                            'Wednesday',
-                            'Thursday',
-                            'Friday',
+                            "Monday",
+                            "Tuesday",
+                            "Wednesday",
+                            "Thursday",
+                            "Friday",
                           ][lesson.dayNumber - 1];
 
                           return (
                             <div
                               key={lesson.id}
                               className={cn(
-                                'border rounded-lg p-4 transition-all hover:shadow-md',
-                                lesson.completed && 'border-green-200 bg-green-50/50'
-                              )}
-                            >
+                                "border rounded-lg p-4 transition-all hover:shadow-md",
+                                lesson.completed &&
+                                  "border-green-200 bg-green-50/50"
+                              )}>
                               <div className="flex items-start justify-between">
                                 <div className="flex-1">
                                   <div className="flex items-center gap-2 mb-2">
                                     <div
                                       className={cn(
-                                        'w-3 h-3 rounded-full',
+                                        "w-3 h-3 rounded-full",
                                         getStatusColor(lesson.status)
                                       )}
                                     />
@@ -161,10 +159,13 @@ export default function CalendarPage() {
                                     {lesson.title}
                                   </h4>
                                   <p className="text-sm text-muted-foreground mb-2">
-                                    <strong>Grammar:</strong> {lesson.grammarFocus}
+                                    <strong>Grammar:</strong>{" "}
+                                    {lesson.grammarFocus}
                                   </p>
                                   <div className="text-sm">
-                                    <p className="font-medium">Learning Goals:</p>
+                                    <p className="font-medium">
+                                      Learning Goals:
+                                    </p>
                                     <ul className="list-disc list-inside text-muted-foreground">
                                       {lesson.learningGoals.map((goal, idx) => (
                                         <li key={idx}>{goal}</li>
@@ -173,8 +174,7 @@ export default function CalendarPage() {
                                   </div>
                                 </div>
                                 <Link
-                                  href={`/lesson/${week.weekNumber}/${lesson.dayNumber}`}
-                                >
+                                  href={`/lesson/${week.weekNumber}/${lesson.dayNumber}`}>
                                   <Button size="sm" variant="outline">
                                     View
                                   </Button>

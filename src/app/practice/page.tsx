@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { useState, useCallback } from 'react';
-import { useAppStore } from '@/store/useAppStore';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { TTSButton } from '@/components/TTSButton';
-import { CheckCircle2, XCircle, AlertCircle, RefreshCw } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { VocabularyWord } from '@/types';
+import { TTSButton } from "@/components/TTSButton";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAppStore } from "@/store/useAppStore";
+import { VocabularyWord } from "@/types";
+import { motion } from "framer-motion";
+import { AlertCircle, CheckCircle2, RefreshCw, XCircle } from "lucide-react";
+import { useCallback, useState } from "react";
 
 export default function PracticePage() {
   const vocabulary = useAppStore((state) => state.vocabulary);
@@ -33,7 +33,7 @@ export default function PracticePage() {
     setCurrentWord(vocabulary[randomIndex]);
   }, [vocabulary]);
 
-  const handleRating = (rating: 'good' | 'okay' | 'try-again') => {
+  const handleRating = (rating: "good" | "okay" | "try-again") => {
     if (!currentWord) return;
 
     addPronunciationPractice({
@@ -54,8 +54,8 @@ export default function PracticePage() {
 
   const stats = practiceHistory.reduce(
     (acc, item) => {
-      if (item.rating === 'good') acc.good++;
-      else if (item.rating === 'okay') acc.okay++;
+      if (item.rating === "good") acc.good++;
+      else if (item.rating === "okay") acc.okay++;
       else acc.tryAgain++;
       return acc;
     },
@@ -80,7 +80,9 @@ export default function PracticePage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-green-600">{stats.good}</div>
+            <div className="text-3xl font-bold text-green-600">
+              {stats.good}
+            </div>
           </CardContent>
         </Card>
         <Card className="border-yellow-200">
@@ -90,7 +92,9 @@ export default function PracticePage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-yellow-600">{stats.okay}</div>
+            <div className="text-3xl font-bold text-yellow-600">
+              {stats.okay}
+            </div>
           </CardContent>
         </Card>
         <Card className="border-red-200">
@@ -100,7 +104,9 @@ export default function PracticePage() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-red-600">{stats.tryAgain}</div>
+            <div className="text-3xl font-bold text-red-600">
+              {stats.tryAgain}
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -111,8 +117,7 @@ export default function PracticePage() {
           key={currentWord.id}
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
-        >
+          transition={{ duration: 0.3 }}>
           <Card className="p-8">
             <CardContent className="space-y-8 pt-6">
               <div className="text-center">
@@ -165,27 +170,24 @@ export default function PracticePage() {
                 <div className="flex justify-center gap-4">
                   <Button
                     size="lg"
-                    onClick={() => handleRating('good')}
-                    className="bg-green-600 hover:bg-green-700"
-                  >
+                    onClick={() => handleRating("good")}
+                    className="bg-green-600 hover:bg-green-700">
                     <CheckCircle2 className="h-5 w-5 mr-2" />
                     Good
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    onClick={() => handleRating('okay')}
-                    className="border-yellow-600 text-yellow-600 hover:bg-yellow-50"
-                  >
+                    onClick={() => handleRating("okay")}
+                    className="border-yellow-600 text-yellow-600 hover:bg-yellow-50">
                     <AlertCircle className="h-5 w-5 mr-2" />
                     Okay
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    onClick={() => handleRating('try-again')}
-                    className="border-red-600 text-red-600 hover:bg-red-50"
-                  >
+                    onClick={() => handleRating("try-again")}
+                    className="border-red-600 text-red-600 hover:bg-red-50">
                     <XCircle className="h-5 w-5 mr-2" />
                     Try Again
                   </Button>
@@ -219,29 +221,30 @@ export default function PracticePage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
-              {practiceHistory.slice(-10).reverse().map((item, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center justify-between p-2 border rounded"
-                >
-                  <span className="font-medium">{item.word}</span>
-                  <span
-                    className={
-                      item.rating === 'good'
-                        ? 'text-green-600'
-                        : item.rating === 'okay'
-                        ? 'text-yellow-600'
-                        : 'text-red-600'
-                    }
-                  >
-                    {item.rating === 'good'
-                      ? '✓ Good'
-                      : item.rating === 'okay'
-                      ? '~ Okay'
-                      : '✗ Try Again'}
-                  </span>
-                </div>
-              ))}
+              {practiceHistory
+                .slice(-10)
+                .reverse()
+                .map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between p-2 border rounded">
+                    <span className="font-medium">{item.word}</span>
+                    <span
+                      className={
+                        item.rating === "good"
+                          ? "text-green-600"
+                          : item.rating === "okay"
+                          ? "text-yellow-600"
+                          : "text-red-600"
+                      }>
+                      {item.rating === "good"
+                        ? "✓ Good"
+                        : item.rating === "okay"
+                        ? "~ Okay"
+                        : "✗ Try Again"}
+                    </span>
+                  </div>
+                ))}
             </div>
           </CardContent>
         </Card>

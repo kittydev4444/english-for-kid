@@ -1,23 +1,29 @@
-'use client';
+"use client";
 
-import React, { useState, useMemo } from 'react';
-import { useAppStore } from '@/store/useAppStore';
-import { VocabularyCard } from '@/components/VocabularyCard';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Plus, Search } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { VocabularyCard } from "@/components/VocabularyCard";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { useAppStore } from "@/store/useAppStore";
+import { motion } from "framer-motion";
+import { Plus, Search } from "lucide-react";
+import { useMemo, useState } from "react";
 
 export default function VocabularyPage() {
   const vocabulary = useAppStore((state) => state.vocabulary);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState<string>('all');
-  const [masteryFilter, setMasteryFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<string>("all");
+  const [masteryFilter, setMasteryFilter] = useState<string>("all");
 
   const categories = useMemo(() => {
     const cats = new Set(vocabulary.map((v) => v.category));
-    return ['all', ...Array.from(cats)];
+    return ["all", ...Array.from(cats)];
   }, [vocabulary]);
 
   const filteredVocabulary = useMemo(() => {
@@ -28,12 +34,12 @@ export default function VocabularyPage() {
         word.thaiPronunciation.includes(searchQuery);
 
       const matchesCategory =
-        categoryFilter === 'all' || word.category === categoryFilter;
+        categoryFilter === "all" || word.category === categoryFilter;
 
       const matchesMastery =
-        masteryFilter === 'all' ||
-        (masteryFilter === 'mastered' && word.mastered) ||
-        (masteryFilter === 'learning' && !word.mastered);
+        masteryFilter === "all" ||
+        (masteryFilter === "mastered" && word.mastered) ||
+        (masteryFilter === "learning" && !word.mastered);
 
       return matchesSearch && matchesCategory && matchesMastery;
     });
@@ -73,13 +79,17 @@ export default function VocabularyPage() {
         <Card className="border-green-200">
           <CardHeader className="pb-2">
             <CardDescription>Mastered</CardDescription>
-            <CardTitle className="text-3xl text-green-600">{stats.mastered}</CardTitle>
+            <CardTitle className="text-3xl text-green-600">
+              {stats.mastered}
+            </CardTitle>
           </CardHeader>
         </Card>
         <Card className="border-blue-200">
           <CardHeader className="pb-2">
             <CardDescription>Learning</CardDescription>
-            <CardTitle className="text-3xl text-blue-600">{stats.learning}</CardTitle>
+            <CardTitle className="text-3xl text-blue-600">
+              {stats.learning}
+            </CardTitle>
           </CardHeader>
         </Card>
       </div>
@@ -103,19 +113,17 @@ export default function VocabularyPage() {
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="px-4 py-2 border rounded-md"
-              >
+                className="px-4 py-2 border rounded-md">
                 {categories.map((cat) => (
                   <option key={cat} value={cat}>
-                    {cat === 'all' ? 'All Categories' : cat}
+                    {cat === "all" ? "All Categories" : cat}
                   </option>
                 ))}
               </select>
               <select
                 value={masteryFilter}
                 onChange={(e) => setMasteryFilter(e.target.value)}
-                className="px-4 py-2 border rounded-md"
-              >
+                className="px-4 py-2 border rounded-md">
                 <option value="all">All Status</option>
                 <option value="mastered">Mastered</option>
                 <option value="learning">Learning</option>
@@ -130,15 +138,13 @@ export default function VocabularyPage() {
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ staggerChildren: 0.1 }}
-      >
+        transition={{ staggerChildren: 0.1 }}>
         {filteredVocabulary.map((word) => (
           <motion.div
             key={word.id}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-          >
+            transition={{ duration: 0.3 }}>
             <VocabularyCard word={word} />
           </motion.div>
         ))}
@@ -147,7 +153,9 @@ export default function VocabularyPage() {
       {filteredVocabulary.length === 0 && (
         <Card>
           <CardContent className="py-12 text-center">
-            <p className="text-muted-foreground">No vocabulary found matching your filters.</p>
+            <p className="text-muted-foreground">
+              No vocabulary found matching your filters.
+            </p>
           </CardContent>
         </Card>
       )}

@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Puzzle } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Puzzle } from "lucide-react";
 
 export default function SentenceBuilderPage() {
   return (
@@ -11,7 +10,9 @@ export default function SentenceBuilderPage() {
         <Puzzle className="h-12 w-12 text-primary" />
         <div>
           <h1 className="text-4xl font-bold">Sentence Builder</h1>
-          <p className="text-muted-foreground">Interactive sentence construction tool</p>
+          <p className="text-muted-foreground">
+            Interactive sentence construction tool
+          </p>
         </div>
       </div>
 
@@ -21,8 +22,9 @@ export default function SentenceBuilderPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Sentence builder features will be available soon. Students will be able to
-            practice constructing sentences with drag-and-drop word tiles.
+            Sentence builder features will be available soon. Students will be
+            able to practice constructing sentences with drag-and-drop word
+            tiles.
           </p>
         </CardContent>
       </Card>

@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Library } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Library } from "lucide-react";
 
 export default function ResourcesPage() {
   return (
@@ -11,7 +10,9 @@ export default function ResourcesPage() {
         <Library className="h-12 w-12 text-primary" />
         <div>
           <h1 className="text-4xl font-bold">Resources Library</h1>
-          <p className="text-muted-foreground">Teaching resources and materials</p>
+          <p className="text-muted-foreground">
+            Teaching resources and materials
+          </p>
         </div>
       </div>
 
@@ -21,8 +22,9 @@ export default function ResourcesPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            Resource library features will be available soon. You'll be able to organize
-            and access teaching materials, games, songs, and activities.
+            Resource library features will be available soon. You'll be able to
+            organize and access teaching materials, games, songs, and
+            activities.
           </p>
         </CardContent>
       </Card>

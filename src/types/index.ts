@@ -12,7 +12,7 @@ export interface VocabularyWord {
   practiceCount: number;
 }
 
-export type LessonStatus = 'planned' | 'in-progress' | 'completed';
+export type LessonStatus = "planned" | "in-progress" | "completed";
 
 export interface Activity {
   id: string;
@@ -99,13 +99,19 @@ export interface PronunciationPractice {
   id: string;
   wordId: string;
   date: string;
-  rating: 'good' | 'okay' | 'try-again';
+  rating: "good" | "okay" | "try-again";
 }
 
 export interface Resource {
   id: string;
   title: string;
-  category: 'song' | 'game' | 'website' | 'activity' | 'printable' | 'pronunciation';
+  category:
+    | "song"
+    | "game"
+    | "website"
+    | "activity"
+    | "printable"
+    | "pronunciation";
   description: string;
   url: string;
   youtubeId?: string;

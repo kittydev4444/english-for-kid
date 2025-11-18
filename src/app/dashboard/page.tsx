@@ -1,13 +1,19 @@
-'use client';
+"use client";
 
-import React, { useEffect } from 'react';
-import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { useAppStore } from '@/store/useAppStore';
-import { Calendar, BookOpen, TrendingUp, Flame, Play } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { useAppStore } from "@/store/useAppStore";
+import { motion } from "framer-motion";
+import { BookOpen, Calendar, Flame, Play, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { useEffect } from "react";
 
 export default function DashboardPage() {
   const weeks = useAppStore((state) => state.weeks);
@@ -21,7 +27,10 @@ export default function DashboardPage() {
   }, [updateStreak]);
 
   // Calculate statistics
-  const totalLessons = weeks.reduce((sum, week) => sum + week.lessons.length, 0);
+  const totalLessons = weeks.reduce(
+    (sum, week) => sum + week.lessons.length,
+    0
+  );
   const completedLessons = weeks.reduce(
     (sum, week) => sum + week.lessons.filter((l) => l.completed).length,
     0
@@ -33,14 +42,15 @@ export default function DashboardPage() {
 
   const averageTestScore =
     tests.length > 0
-      ? tests.reduce((sum, test) => sum + test.overallPercentage, 0) / tests.length
+      ? tests.reduce((sum, test) => sum + test.overallPercentage, 0) /
+        tests.length
       : 0;
 
   // Find today's lesson (Monday-Friday, Week 1-12)
   const today = new Date();
   const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 5 = Friday
   const currentWeekNumber = 1; // You can make this dynamic
-  
+
   let todayLesson = null;
   if (dayOfWeek >= 1 && dayOfWeek <= 5) {
     const dayNumber = dayOfWeek;
@@ -68,19 +78,24 @@ export default function DashboardPage() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-6"
-    >
+      className="space-y-6">
       <motion.div variants={item}>
         <h1 className="text-5xl font-bold mb-2 gradient-text">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back! Here&apos;s your teaching overview.</p>
+        <p className="text-muted-foreground">
+          Welcome back! Here&apos;s your teaching overview.
+        </p>
       </motion.div>
 
       {/* Quick Stats */}
-      <motion.div variants={item} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <motion.div
+        variants={item}
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="card-glow border-primary/20">
           <CardHeader className="pb-2">
             <CardDescription>Overall Progress</CardDescription>
-            <CardTitle className="text-3xl">{Math.round(progressPercentage)}%</CardTitle>
+            <CardTitle className="text-3xl">
+              {Math.round(progressPercentage)}%
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <Progress value={progressPercentage} className="h-2" />
@@ -98,9 +113,14 @@ export default function DashboardPage() {
           <CardContent>
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">Mastered:</span>
-              <span className="font-semibold text-secondary">{masteredVocabulary}</span>
+              <span className="font-semibold text-secondary">
+                {masteredVocabulary}
+              </span>
             </div>
-            <Progress value={(masteredVocabulary / totalVocabulary) * 100} className="h-2 mt-2" />
+            <Progress
+              value={(masteredVocabulary / totalVocabulary) * 100}
+              className="h-2 mt-2"
+            />
           </CardContent>
         </Card>
 
@@ -108,7 +128,9 @@ export default function DashboardPage() {
           <CardHeader className="pb-2">
             <CardDescription>Average Test Score</CardDescription>
             <CardTitle className="text-3xl">
-              {averageTestScore > 0 ? `${Math.round(averageTestScore)}%` : 'N/A'}
+              {averageTestScore > 0
+                ? `${Math.round(averageTestScore)}%`
+                : "N/A"}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -129,7 +151,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent>
             <p className="text-sm text-muted-foreground">
-              {streakDays === 0 ? 'Start your streak today!' : 'days in a row'}
+              {streakDays === 0 ? "Start your streak today!" : "days in a row"}
             </p>
           </CardContent>
         </Card>
@@ -142,12 +164,15 @@ export default function DashboardPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="text-2xl">Today&apos;s Lesson</CardTitle>
+                  <CardTitle className="text-2xl">
+                    Today&apos;s Lesson
+                  </CardTitle>
                   <CardDescription>
                     Week {todayLesson.weekNumber}, Day {todayLesson.dayNumber}
                   </CardDescription>
                 </div>
-                <Link href={`/lesson/${todayLesson.weekNumber}/${todayLesson.dayNumber}`}>
+                <Link
+                  href={`/lesson/${todayLesson.weekNumber}/${todayLesson.dayNumber}`}>
                   <Button className="bg-linear-to-r from-primary to-secondary hover:opacity-90">
                     <Play className="h-4 w-4 mr-2" />
                     Start Lesson
@@ -156,7 +181,9 @@ export default function DashboardPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <h3 className="font-semibold text-lg mb-2">{todayLesson.title}</h3>
+              <h3 className="font-semibold text-lg mb-2">
+                {todayLesson.title}
+              </h3>
               <p className="text-sm text-muted-foreground mb-3">
                 <strong>Grammar:</strong> {todayLesson.grammarFocus}
               </p>
@@ -175,7 +202,9 @@ export default function DashboardPage() {
 
       {/* Quick Actions */}
       <motion.div variants={item}>
-        <h2 className="text-2xl font-semibold mb-4 gradient-text">Quick Actions</h2>
+        <h2 className="text-2xl font-semibold mb-4 gradient-text">
+          Quick Actions
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link href="/calendar">
             <Card className="card-glow hover:border-primary transition-all cursor-pointer h-full group">

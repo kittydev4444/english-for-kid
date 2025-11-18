@@ -5,19 +5,19 @@
   --color-foreground: #ffffff;
   --color-card: #1a1229;
   --color-card-foreground: #ffffff;
-  --color-primary: #9945FF;
+  --color-primary: #9945ff;
   --color-primary-foreground: #ffffff;
-  --color-secondary: #14F195;
+  --color-secondary: #14f195;
   --color-secondary-foreground: #0f0a1e;
   --color-muted: #251c3a;
   --color-muted-foreground: #a0a0b0;
-  --color-accent: #9945FF;
+  --color-accent: #9945ff;
   --color-accent-foreground: #ffffff;
   --color-destructive: #ef4444;
   --color-destructive-foreground: #ffffff;
   --color-border: #2a1f3d;
   --color-input: #251c3a;
-  --color-ring: #9945FF;
+  --color-ring: #9945ff;
   --radius: 0.75rem;
 }
 
@@ -29,7 +29,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(90deg, #9945FF 0%, #14F195 100%);
+  background: linear-gradient(90deg, #9945ff 0%, #14f195 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

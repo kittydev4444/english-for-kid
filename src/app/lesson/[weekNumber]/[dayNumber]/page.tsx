@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { useAppStore } from '@/store/useAppStore';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
-import { Progress } from '@/components/ui/progress';
-import { TTSButton } from '@/components/TTSButton';
-import { Check, ChevronLeft, ChevronRight, Clock, Star } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { TTSButton } from "@/components/TTSButton";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+import { useAppStore } from "@/store/useAppStore";
+import { Check, ChevronLeft, ChevronRight, Clock, Star } from "lucide-react";
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function LessonPage() {
   const params = useParams();
@@ -20,14 +20,16 @@ export default function LessonPage() {
   const weeks = useAppStore((state) => state.weeks);
   const updateLesson = useAppStore((state) => state.updateLesson);
   const completeLesson = useAppStore((state) => state.completeLesson);
-  const updateLessonEngagement = useAppStore((state) => state.updateLessonEngagement);
+  const updateLessonEngagement = useAppStore(
+    (state) => state.updateLessonEngagement
+  );
 
   const week = weeks.find((w) => w.weekNumber === weekNumber);
   const lesson = week?.lessons.find((l) => l.dayNumber === dayNumber);
 
   const [timeRemaining, setTimeRemaining] = useState(60 * 60); // 60 minutes
   const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [notes, setNotes] = useState(lesson?.notes || '');
+  const [notes, setNotes] = useState(lesson?.notes || "");
   const [rating, setRating] = useState(lesson?.engagementRating || 0);
 
   useEffect(() => {
@@ -44,7 +46,7 @@ export default function LessonPage() {
     return (
       <div className="text-center py-12">
         <h1 className="text-2xl font-bold mb-4">Lesson Not Found</h1>
-        <Button onClick={() => router.push('/calendar')}>
+        <Button onClick={() => router.push("/calendar")}>
           Back to Calendar
         </Button>
       </div>
@@ -54,11 +56,12 @@ export default function LessonPage() {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   const completedActivities = lesson.sections.reduce(
-    (sum, section) => sum + section.activities.filter((a) => a.completed).length,
+    (sum, section) =>
+      sum + section.activities.filter((a) => a.completed).length,
     0
   );
   const totalActivities = lesson.sections.reduce(
@@ -86,7 +89,7 @@ export default function LessonPage() {
 
   const handleSaveNotes = () => {
     updateLesson(weekNumber, dayNumber, { notes });
-    alert('Notes saved!');
+    alert("Notes saved!");
   };
 
   const handleRating = (newRating: number) => {
@@ -97,12 +100,12 @@ export default function LessonPage() {
   const handleCompleteLesson = () => {
     completeLesson(weekNumber, dayNumber);
     updateLesson(weekNumber, dayNumber, { notes });
-    alert('Lesson completed!');
-    router.push('/calendar');
+    alert("Lesson completed!");
+    router.push("/calendar");
   };
 
-  const navigateLesson = (direction: 'prev' | 'next') => {
-    let newDay = dayNumber + (direction === 'next' ? 1 : -1);
+  const navigateLesson = (direction: "prev" | "next") => {
+    let newDay = dayNumber + (direction === "next" ? 1 : -1);
     let newWeek = weekNumber;
 
     if (newDay > 5) {
@@ -140,17 +143,15 @@ export default function LessonPage() {
           <Button
             variant="outline"
             size="icon"
-            onClick={() => navigateLesson('prev')}
-            disabled={weekNumber === 1 && dayNumber === 1}
-          >
+            onClick={() => navigateLesson("prev")}
+            disabled={weekNumber === 1 && dayNumber === 1}>
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button
             variant="outline"
             size="icon"
-            onClick={() => navigateLesson('next')}
-            disabled={weekNumber === 12 && dayNumber === 5}
-          >
+            onClick={() => navigateLesson("next")}
+            disabled={weekNumber === 12 && dayNumber === 5}>
             <ChevronRight className="h-4 w-4" />
           </Button>
         </div>
@@ -172,14 +173,12 @@ export default function LessonPage() {
             <div className="flex gap-2">
               <Button
                 onClick={() => setIsTimerRunning(!isTimerRunning)}
-                className="flex-1"
-              >
-                {isTimerRunning ? 'Pause' : 'Start'}
+                className="flex-1">
+                {isTimerRunning ? "Pause" : "Start"}
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setTimeRemaining(60 * 60)}
-              >
+                onClick={() => setTimeRemaining(60 * 60)}>
                 Reset
               </Button>
             </div>
@@ -239,11 +238,10 @@ export default function LessonPage() {
                 <div
                   key={activity.id}
                   className={cn(
-                    'flex items-start gap-3 p-3 border rounded-lg transition-colors',
-                    activity.completed && 'bg-green-50 border-green-200'
+                    "flex items-start gap-3 p-3 border rounded-lg transition-colors",
+                    activity.completed && "bg-green-50 border-green-200"
                   )}
-                  onClick={() => handleToggleActivity(section.id, activity.id)}
-                >
+                  onClick={() => handleToggleActivity(section.id, activity.id)}>
                   <input
                     type="checkbox"
                     checked={activity.completed}
@@ -315,14 +313,13 @@ export default function LessonPage() {
               <button
                 key={star}
                 onClick={() => handleRating(star)}
-                className="focus:outline-none"
-              >
+                className="focus:outline-none">
                 <Star
                   className={cn(
-                    'h-8 w-8 transition-colors',
+                    "h-8 w-8 transition-colors",
                     star <= rating
-                      ? 'fill-yellow-400 text-yellow-400'
-                      : 'text-gray-300'
+                      ? "fill-yellow-400 text-yellow-400"
+                      : "text-gray-300"
                   )}
                 />
               </button>
@@ -336,9 +333,8 @@ export default function LessonPage() {
         onClick={handleCompleteLesson}
         size="lg"
         className="w-full"
-        disabled={lesson.completed}
-      >
-        {lesson.completed ? 'Lesson Completed ✓' : 'Mark as Complete'}
+        disabled={lesson.completed}>
+        {lesson.completed ? "Lesson Completed ✓" : "Mark as Complete"}
       </Button>
     </div>
   );

@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { Volume2, VolumeX } from 'lucide-react';
-import { Button } from './ui/button';
-import { cn } from '@/lib/utils';
-import { speak, stopSpeaking, isSpeaking } from '@/lib/tts';
-import { useAppStore } from '@/store/useAppStore';
-import { motion } from 'framer-motion';
+import { isSpeaking, speak, stopSpeaking } from "@/lib/tts";
+import { cn } from "@/lib/utils";
+import { useAppStore } from "@/store/useAppStore";
+import { motion } from "framer-motion";
+import { Volume2, VolumeX } from "lucide-react";
+import React, { useState } from "react";
+import { Button } from "./ui/button";
 
 interface TTSButtonProps {
   text: string;
   className?: string;
-  size?: 'default' | 'sm' | 'lg' | 'icon';
-  variant?: 'default' | 'outline' | 'ghost' | 'secondary';
+  size?: "default" | "sm" | "lg" | "icon";
+  variant?: "default" | "outline" | "ghost" | "secondary";
   showLabel?: boolean;
   onStart?: () => void;
   onEnd?: () => void;
@@ -21,8 +21,8 @@ interface TTSButtonProps {
 export const TTSButton: React.FC<TTSButtonProps> = ({
   text,
   className,
-  size = 'icon',
-  variant = 'default',
+  size = "icon",
+  variant = "default",
   showLabel = false,
   onStart,
   onEnd,
@@ -50,7 +50,7 @@ export const TTSButton: React.FC<TTSButtonProps> = ({
         onEnd?.();
       },
       (error) => {
-        console.error('TTS Error:', error);
+        console.error("TTS Error:", error);
         setIsPlaying(false);
         onEnd?.();
       }
@@ -62,22 +62,18 @@ export const TTSButton: React.FC<TTSButtonProps> = ({
       variant={variant}
       size={size}
       onClick={handleSpeak}
-      className={cn('relative', className)}
-      title={isPlaying ? 'Stop speaking' : 'Play pronunciation'}
-    >
+      className={cn("relative", className)}
+      title={isPlaying ? "Stop speaking" : "Play pronunciation"}>
       <motion.div
         animate={isPlaying ? { scale: [1, 1.2, 1] } : { scale: 1 }}
-        transition={{ repeat: isPlaying ? Infinity : 0, duration: 1 }}
-      >
+        transition={{ repeat: isPlaying ? Infinity : 0, duration: 1 }}>
         {isPlaying ? (
           <VolumeX className="h-4 w-4" />
         ) : (
           <Volume2 className="h-4 w-4" />
         )}
       </motion.div>
-      {showLabel && (
-        <span className="ml-2">{isPlaying ? 'Stop' : 'Play'}</span>
-      )}
+      {showLabel && <span className="ml-2">{isPlaying ? "Stop" : "Play"}</span>}
     </Button>
   );
 };

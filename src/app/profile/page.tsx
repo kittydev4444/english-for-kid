@@ -1,33 +1,41 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useAppStore } from '@/store/useAppStore';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { User as UserIcon } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useAppStore } from "@/store/useAppStore";
+import { User as UserIcon } from "lucide-react";
+import React from "react";
 
 export default function ProfilePage() {
   const studentProfile = useAppStore((state) => state.studentProfile);
-  const updateStudentProfile = useAppStore((state) => state.updateStudentProfile);
+  const updateStudentProfile = useAppStore(
+    (state) => state.updateStudentProfile
+  );
 
   const handleSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     updateStudentProfile({
-      name: formData.get('name') as string,
-      age: parseInt(formData.get('age') as string),
-      learningGoals: formData.get('learningGoals') as string,
-      notes: formData.get('notes') as string,
+      name: formData.get("name") as string,
+      age: parseInt(formData.get("age") as string),
+      learningGoals: formData.get("learningGoals") as string,
+      notes: formData.get("notes") as string,
       parentContact: {
-        name: formData.get('parentName') as string,
-        phone: formData.get('parentPhone') as string,
-        email: formData.get('parentEmail') as string,
+        name: formData.get("parentName") as string,
+        phone: formData.get("parentPhone") as string,
+        email: formData.get("parentEmail") as string,
       },
     });
-    alert('Profile updated!');
+    alert("Profile updated!");
   };
 
   return (

@@ -1,7 +1,7 @@
-import { TTSSettings } from '@/types';
+import { TTSSettings } from "@/types";
 
 export const isTTSSupported = (): boolean => {
-  return typeof window !== 'undefined' && 'speechSynthesis' in window;
+  return typeof window !== "undefined" && "speechSynthesis" in window;
 };
 
 export const getAvailableVoices = (): SpeechSynthesisVoice[] => {
@@ -23,7 +23,7 @@ export const speak = (
   onError?: (error: Error) => void
 ): void => {
   if (!isTTSSupported()) {
-    onError?.(new Error('Text-to-speech is not supported in this browser'));
+    onError?.(new Error("Text-to-speech is not supported in this browser"));
     return;
   }
 
@@ -31,9 +31,9 @@ export const speak = (
   stopSpeaking();
 
   const utterance = new SpeechSynthesisUtterance(text);
-  
+
   // Apply settings
-  utterance.lang = settings.language || 'en-US';
+  utterance.lang = settings.language || "en-US";
   utterance.rate = settings.speed || 1;
   utterance.pitch = settings.pitch || 1;
   utterance.volume = settings.volume || 1;
@@ -41,7 +41,7 @@ export const speak = (
   // Find and set the selected voice
   if (settings.voice) {
     const voices = getAvailableVoices();
-    const selectedVoice = voices.find(voice => voice.name === settings.voice);
+    const selectedVoice = voices.find((voice) => voice.name === settings.voice);
     if (selectedVoice) {
       utterance.voice = selectedVoice;
     }
@@ -105,11 +105,11 @@ export const isSpeaking = (): boolean => {
 
 export const getDefaultTTSSettings = (): TTSSettings => {
   return {
-    voice: '',
+    voice: "",
     speed: 1,
     pitch: 1,
     volume: 1,
-    language: 'en-US',
+    language: "en-US",
   };
 };
 

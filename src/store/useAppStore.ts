@@ -1,17 +1,22 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 import {
-  Week,
-  VocabularyWord,
-  TestScore,
-  StudentProfile,
-  TTSSettings,
+  getInitialResources,
+  getInitialStudentProfile,
+  getInitialVocabulary,
+  getInitialWeeks,
+} from "@/lib/seed-data";
+import { getDefaultTTSSettings } from "@/lib/tts";
+import {
+  Lesson,
   PronunciationPractice,
   Resource,
-  Lesson,
-} from '@/types';
-import { getDefaultTTSSettings } from '@/lib/tts';
-import { getInitialWeeks, getInitialVocabulary, getInitialStudentProfile, getInitialResources } from '@/lib/seed-data';
+  StudentProfile,
+  TestScore,
+  TTSSettings,
+  VocabularyWord,
+  Week,
+} from "@/types";
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface AppStore {
   // State
@@ -27,20 +32,30 @@ interface AppStore {
   darkMode: boolean;
 
   // Actions - Lessons
-  updateLesson: (weekNumber: number, dayNumber: number, lesson: Partial<Lesson>) => void;
+  updateLesson: (
+    weekNumber: number,
+    dayNumber: number,
+    lesson: Partial<Lesson>
+  ) => void;
   completeLesson: (weekNumber: number, dayNumber: number) => void;
   addLessonNote: (weekNumber: number, dayNumber: number, note: string) => void;
-  updateLessonEngagement: (weekNumber: number, dayNumber: number, rating: number) => void;
+  updateLessonEngagement: (
+    weekNumber: number,
+    dayNumber: number,
+    rating: number
+  ) => void;
 
   // Actions - Vocabulary
-  addVocabulary: (word: Omit<VocabularyWord, 'id' | 'dateAdded' | 'practiceCount'>) => void;
+  addVocabulary: (
+    word: Omit<VocabularyWord, "id" | "dateAdded" | "practiceCount">
+  ) => void;
   updateVocabulary: (id: string, word: Partial<VocabularyWord>) => void;
   deleteVocabulary: (id: string) => void;
   toggleMastered: (id: string) => void;
   incrementPracticeCount: (id: string) => void;
 
   // Actions - Tests
-  addTest: (test: Omit<TestScore, 'id'>) => void;
+  addTest: (test: Omit<TestScore, "id">) => void;
   updateTest: (id: string, test: Partial<TestScore>) => void;
   deleteTest: (id: string) => void;
 
@@ -51,10 +66,12 @@ interface AppStore {
   updateTTSSettings: (settings: Partial<TTSSettings>) => void;
 
   // Actions - Pronunciation History
-  addPronunciationPractice: (practice: Omit<PronunciationPractice, 'id'>) => void;
+  addPronunciationPractice: (
+    practice: Omit<PronunciationPractice, "id">
+  ) => void;
 
   // Actions - Resources
-  addResource: (resource: Omit<Resource, 'id'>) => void;
+  addResource: (resource: Omit<Resource, "id">) => void;
   updateResource: (id: string, resource: Partial<Resource>) => void;
   deleteResource: (id: string) => void;
   toggleResourceFavorite: (id: string) => void;
@@ -79,7 +96,7 @@ export const useAppStore = create<AppStore>()(
       pronunciationHistory: [],
       resources: getInitialResources(),
       streakDays: 0,
-      lastAccessDate: new Date().toISOString().split('T')[0],
+      lastAccessDate: new Date().toISOString().split("T")[0],
       darkMode: false,
 
       // Lesson Actions
@@ -107,7 +124,7 @@ export const useAppStore = create<AppStore>()(
                   ...week,
                   lessons: week.lessons.map((lesson) =>
                     lesson.dayNumber === dayNumber
-                      ? { ...lesson, status: 'completed', completed: true }
+                      ? { ...lesson, status: "completed", completed: true }
                       : lesson
                   ),
                 }
@@ -123,7 +140,7 @@ export const useAppStore = create<AppStore>()(
                   ...week,
                   lessons: week.lessons.map((lesson) =>
                     lesson.dayNumber === dayNumber
-                      ? { ...lesson, notes: lesson.notes + '\n' + note }
+                      ? { ...lesson, notes: lesson.notes + "\n" + note }
                       : lesson
                   ),
                 }
@@ -183,7 +200,9 @@ export const useAppStore = create<AppStore>()(
       incrementPracticeCount: (id) =>
         set((state) => ({
           vocabulary: state.vocabulary.map((word) =>
-            word.id === id ? { ...word, practiceCount: word.practiceCount + 1 } : word
+            word.id === id
+              ? { ...word, practiceCount: word.practiceCount + 1 }
+              : word
           ),
         })),
 
@@ -262,17 +281,18 @@ export const useAppStore = create<AppStore>()(
       toggleResourceFavorite: (id) =>
         set((state) => ({
           resources: state.resources.map((resource) =>
-            resource.id === id ? { ...resource, favorite: !resource.favorite } : resource
+            resource.id === id
+              ? { ...resource, favorite: !resource.favorite }
+              : resource
           ),
         })),
 
       // App Settings Actions
-      toggleDarkMode: () =>
-        set((state) => ({ darkMode: !state.darkMode })),
+      toggleDarkMode: () => set((state) => ({ darkMode: !state.darkMode })),
 
       updateStreak: () =>
         set((state) => {
-          const today = new Date().toISOString().split('T')[0];
+          const today = new Date().toISOString().split("T")[0];
           const lastDate = new Date(state.lastAccessDate);
           const todayDate = new Date(today);
           const diffTime = todayDate.getTime() - lastDate.getTime();
@@ -301,7 +321,7 @@ export const useAppStore = create<AppStore>()(
           pronunciationHistory: [],
           resources: getInitialResources(),
           streakDays: 0,
-          lastAccessDate: new Date().toISOString().split('T')[0],
+          lastAccessDate: new Date().toISOString().split("T")[0],
           darkMode: false,
         }),
 
@@ -310,7 +330,7 @@ export const useAppStore = create<AppStore>()(
           const parsed = JSON.parse(data);
           set(parsed);
         } catch (error) {
-          console.error('Failed to import data:', error);
+          console.error("Failed to import data:", error);
         }
       },
 
@@ -320,7 +340,7 @@ export const useAppStore = create<AppStore>()(
       },
     }),
     {
-      name: 'english-teaching-storage',
+      name: "english-teaching-storage",
     }
   )
 );

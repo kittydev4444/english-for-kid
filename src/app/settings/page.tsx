@@ -92,7 +92,9 @@ export default function SettingsPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Speed: {ttsSettings.speed}x</label>
+            <label className="text-sm font-medium">
+              Speed: {ttsSettings.speed}x
+            </label>
             <input
               type="range"
               min="0.5"
@@ -112,7 +114,9 @@ export default function SettingsPage() {
           </div>
 
           <div className="space-y-2">
-            <label className="text-sm font-medium">Volume: {Math.round(ttsSettings.volume * 100)}%</label>
+            <label className="text-sm font-medium">
+              Volume: {Math.round(ttsSettings.volume * 100)}%
+            </label>
             <input
               type="range"
               min="0"
@@ -164,12 +168,11 @@ export default function SettingsPage() {
             <button
               onClick={toggleDarkMode}
               className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                darkMode ? 'bg-primary' : 'bg-gray-200'
-              }`}
-            >
+                darkMode ? "bg-primary" : "bg-gray-200"
+              }`}>
               <span
                 className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                  darkMode ? 'translate-x-6' : 'translate-x-1'
+                  darkMode ? "translate-x-6" : "translate-x-1"
                 }`}
               />
             </button>
